@@ -1,4 +1,3 @@
-
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const dk=d=>{const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
@@ -66,7 +65,7 @@ function hydrate(d){ // load a saved state into the UI
   if(S.daily.date!==today())S.daily={date:today(),items:S.daily.items.map(i=>({...i,d:false}))}; // daily goals reset each day
   S.pom=Object.assign({w:25,b:5,h:2},S.pom);
   $('#goal').value=S.goal;$('#pw').value=S.pom.w;$('#pb').value=S.pom.b;$('#ph').value=S.pom.h;
-  clearInterval(run);run=null;mkPlan();gAll();hView();pView();
+  clearInterval(run);run=null;mkPlan();gAll();hView();pView();greet();
 }
 const authEl=$('#auth'),am=$('#am');
 function lock(on){authEl.classList.toggle('on',on);document.body.classList.toggle('locked',on);if(on)setTimeout(()=>$('#ae').focus(),50)}
@@ -78,7 +77,7 @@ async function authDo(kind){
   if(!email||pw.length<6){am.textContent='Enter your email and a password of 6+ characters.';return}
   am.textContent='One moment…';
   try{
-    const {data,error}=kind==='up'?await Store.signUp(email,pw):await Store.signIn(email,pw);
+    const {data,error}=kind==='up'?await Store.signUp(email,pw,$('#an').value.trim()):await Store.signIn(email,pw);
     if(error){am.textContent=error.message;return}
     if(!(data&&data.session)){am.textContent='Check your inbox to confirm your email, then sign in.';return}
     $('#ap').value='';am.textContent='';await enter();
@@ -93,3 +92,20 @@ $('#out').onclick=async()=>{await Store.signOut();blank();who();lock(true)};
   Store.onAuth(ev=>{if(ev==='SIGNED_OUT'&&!authEl.classList.contains('on')){blank();who();lock(true)}});
   if(await Store.session())await enter();else{who();lock(true)}
 })();
+
+/* ---------- greeting: good morning / afternoon / evening / night ---------- */
+const GREET={
+  morning:['🌅','Good morning',['Fresh start. Pick one small step to begin.','Let the day bloom, one task at a time.','A little focus now makes the whole day lighter.']],
+  afternoon:['☀️','Good afternoon',['Keep going. Small steps add up.','Time for a focus round? Your timer is ready.','Check your goals for today and keep the momentum.']],
+  evening:['🌇','Good evening',['Wind down gently. What went well today?','Tick off your habits before the day closes.','Almost there. Finish one more small thing.']],
+  night:['🌙','Good night',['Time to rest. Tomorrow’s blooms need sleep.','Log your habits, then switch off and recharge.','Be kind to yourself and sleep well.']]
+};
+function greet(){
+  const d=new Date(),h=d.getHours(),k=h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':h>=18&&h<22?'evening':'night',g=GREET[k];
+  const u=Store.user,meta=u&&u.user_metadata&&u.user_metadata.name;let name=meta?String(meta).trim():(u?u.email.split('@')[0].replace(/[._-]+/g,' ').trim():'');
+  name=name?name.charAt(0).toUpperCase()+name.slice(1):'';
+  $('#hi-ico').textContent=g[0];
+  $('#hi').textContent=g[1]+(name?', '+name:'');
+  $('#hs').textContent=d.toLocaleDateString('en',{weekday:'long',month:'long',day:'numeric'})+' · '+g[2][d.getDate()%3];
+}
+setInterval(greet,60000);

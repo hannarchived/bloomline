@@ -1,6 +1,4 @@
-// Storage layer: Supabase (accounts + per-user cloud sync) with a localStorage cache.
-// If config.js still has the placeholder values, the app runs in "local mode" instead.
-(function () {
+ (function () {
   const cfg = window.BLOOMLINE_CONFIG || {};
   const configured = cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY && !/YOUR_/.test(cfg.SUPABASE_URL + cfg.SUPABASE_ANON_KEY);
   const sb = configured && window.supabase ? window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY) : null;
@@ -27,8 +25,8 @@
       return user;
     },
     onAuth(cb) { if (sb) sb.auth.onAuthStateChange((ev) => { if (ev === 'SIGNED_OUT') user = null; cb(ev); }); },
-    async signUp(email, password) {
-      const r = await sb.auth.signUp({ email, password });
+    async signUp(email, password, name) {
+      const r = await sb.auth.signUp({ email, password, options: { data: { name: name || null } } });
       if (r.data && r.data.session) user = r.data.session.user;
       return r;
     },
