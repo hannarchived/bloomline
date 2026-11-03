@@ -1,4 +1,3 @@
-
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const dk=d=>{const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
@@ -60,6 +59,22 @@ $('#hf').onsubmit=e=>{e.preventDefault();const tasks=$('#ht').value.split(/[\n,]
 $('#hl').onchange=e=>{const{h,t}=e.target.dataset,T=today();if(e.target.checked){S.logs.push({ts:Date.now(),date:T,h,t});const r=e.target.getBoundingClientRect();burst(r.x,r.y)}else S.logs=S.logs.filter(l=>!(l.date===T&&l.h===h&&l.t===t));hView()};
 $('#hl').onclick=e=>{const d=e.target.dataset.dh;if(d){S.habits=S.habits.filter(x=>x.id!==d);hView()}};
 
+/* ---------- greeting: good morning / afternoon / evening / night ---------- */
+const GREET={
+  morning:['🌅','Good morning',['Fresh start. Pick one small step to begin.','Let the day bloom, one task at a time.','A little focus now makes the whole day lighter.']],
+  afternoon:['☀️','Good afternoon',['Keep going. Small steps add up.','Time for a focus round? Your timer is ready.','Check your goals for today and keep the momentum.']],
+  evening:['🌇','Good evening',['Wind down gently. What went well today?','Tick off your habits before the day closes.','Almost there. Finish one more small thing.']],
+  night:['🌙','Good night',['Time to rest. Tomorrow’s blooms need sleep.','Log your habits, then switch off and recharge.','Be kind to yourself and sleep well.']]
+};
+function greet(){
+  const d=new Date(),h=d.getHours(),k=h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':h>=18&&h<22?'evening':'night',g=GREET[k];
+  let name=Store.user?Store.user.email.split('@')[0].replace(/[._-]+/g,' ').trim():'';
+  name=name?name.charAt(0).toUpperCase()+name.slice(1):'';
+  $('#hi').textContent=g[1]+(name?', '+name:'')+'!';
+  $('#hs').title=d.toLocaleDateString('en',{weekday:'long',month:'long',day:'numeric'})+' · '+g[2][d.getDate()%3];
+}
+setInterval(greet,60000);
+
 /* ---------- accounts + sync (Supabase) ---------- */
 function hydrate(d){ // load a saved state into the UI
   S=Object.assign(defaults(),d||{});
@@ -93,20 +108,3 @@ $('#out').onclick=async()=>{await Store.signOut();blank();who();lock(true)};
   Store.onAuth(ev=>{if(ev==='SIGNED_OUT'&&!authEl.classList.contains('on')){blank();who();lock(true)}});
   if(await Store.session())await enter();else{who();lock(true)}
 })();
-
-/* ---------- greeting: good morning / afternoon / evening / night ---------- */
-const GREET={
-  morning:['🌅','Good morning',['Fresh start. Pick one small step to begin.','Let the day bloom, one task at a time.','A little focus now makes the whole day lighter.']],
-  afternoon:['☀️','Good afternoon',['Keep going. Small steps add up.','Time for a focus round? Your timer is ready.','Check your goals for today and keep the momentum.']],
-  evening:['🌇','Good evening',['Wind down gently. What went well today?','Tick off your habits before the day closes.','Almost there. Finish one more small thing.']],
-  night:['🌙','Good night',['Time to rest. Tomorrow’s blooms need sleep.','Log your habits, then switch off and recharge.','Be kind to yourself and sleep well.']]
-};
-function greet(){
-  const d=new Date(),h=d.getHours(),k=h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':h>=18&&h<22?'evening':'night',g=GREET[k];
-  let name=Store.user?Store.user.email.split('@')[0].replace(/[._-]+/g,' ').trim():'';
-  name=name?name.charAt(0).toUpperCase()+name.slice(1):'';
-  $('#hi-ico').textContent=g[0];
-  $('#hi').textContent=g[1]+(name?', '+name:'')+'!';
-  $('#hs').title=d.toLocaleDateString('en',{weekday:'long',month:'long',day:'numeric'})+' · '+g[2][d.getDate()%3];
-}
-setInterval(greet,60000);
