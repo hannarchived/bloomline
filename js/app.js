@@ -95,10 +95,10 @@ $('#out').onclick=async()=>{await Store.signOut();blank();who();lock(true)};
 
 /* ---------- greeting: good morning / afternoon / evening / night ---------- */
 const GREET={
-  morning:['🌅','Good morning',['Fresh start. Pick one small step to begin.','Let the day bloom, one task at a time.','A little focus now makes the whole day lighter.']],
-  afternoon:['☀️','Good afternoon',['Keep going. Small steps add up.','Time for a focus round? Your timer is ready.','Check your goals for today and keep the momentum.']],
-  evening:['🌇','Good evening',['Wind down gently. What went well today?','Tick off your habits before the day closes.','Almost there. Finish one more small thing.']],
-  night:['🌙','Good night',['Time to rest. Tomorrow’s blooms need sleep.','Log your habits, then switch off and recharge.','Be kind to yourself and sleep well.']]
+  morning:['Good morning',['Fresh start. Pick one small step to begin.','Let the day bloom, one task at a time.','A little focus now makes the whole day lighter.']],
+  afternoon:['Good afternoon',['Keep going. Small steps add up.','Time for a focus round? Your timer is ready.','Check your goals for today and keep the momentum.']],
+  evening:['Good evening',['Wind down gently. What went well today?','Tick off your habits before the day closes.','Almost there. Finish one more small thing.']],
+  night:['Good night',['Time to rest. Tomorrow’s blooms need sleep.','Log your habits, then switch off and recharge.','Be kind to yourself and sleep well.']]
 };
 function greet(){
   const d=new Date(),h=d.getHours(),k=h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':h>=18&&h<22?'evening':'night',g=GREET[k];
