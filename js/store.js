@@ -1,7 +1,16 @@
 (function () {
   const cfg = window.BLOOMLINE_CONFIG || {};
-  const configured = cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY && !/YOUR_/.test(cfg.SUPABASE_URL + cfg.SUPABASE_ANON_KEY);
-  const sb = configured && window.supabase ? window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY) : null;
+  const rawUrl = String(cfg.SUPABASE_URL || '').trim(), apiKey = String(cfg.SUPABASE_ANON_KEY || '').trim();
+  // Tidy common URL mistakes: trailing slash, /rest/v1 paths, or the dashboard link instead of the project URL.
+  function cleanUrl(u) {
+    const m = u.match(/supabase\.com\/dashboard\/project\/([a-z0-9]+)/i);
+    if (m) return 'https://' + m[1] + '.supabase.co';
+    if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
+    try { return new URL(u).origin; } catch (e) { return u; }
+  }
+  const url = cleanUrl(rawUrl);
+  const configured = rawUrl && apiKey && !/YOUR_/.test(rawUrl + apiKey);
+  const sb = configured && window.supabase ? window.supabase.createClient(url, apiKey) : null;
 
   let user = null, timer = null, pending = null;
   const key = () => 'bloomline:' + (user ? user.id : 'local');
@@ -17,6 +26,7 @@
 
   window.Store = {
     enabled: !!sb,
+    host: url.replace(/^https?:\/\//, ''),
     get user() { return user; },
     async session() {
       if (!sb) return null;
@@ -25,14 +35,20 @@
       return user;
     },
     onAuth(cb) { if (sb) sb.auth.onAuthStateChange((ev) => { if (ev === 'SIGNED_OUT') user = null; cb(ev); }); },
-    async signUp(email, password) {
-      const r = await sb.auth.signUp({ email, password });
+    async signUp(email, password, name) {
+      const r = await sb.auth.signUp({ email, password, options: { data: { name: name || null } } });
       if (r.data && r.data.session) user = r.data.session.user;
       return r;
     },
-    async signIn(email, password) {
+    async signIn(email, password, name) {
       const r = await sb.auth.signInWithPassword({ email, password });
-      if (r.data && r.data.session) user = r.data.session.user;
+      if (r.data && r.data.session) {
+        user = r.data.session.user;
+        if (name) {   // lets existing accounts set or change their nickname at sign in
+          const u = await sb.auth.updateUser({ data: { name } });
+          if (u.data && u.data.user) user = u.data.user;
+        }
+      }
       return r;
     },
     async signOut() {
