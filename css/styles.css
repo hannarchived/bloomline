@@ -183,11 +183,6 @@ header.glass{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
 .greet-pill{display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
 .greet-pill span{font-size:15px;font-weight:500!important}
 @media(max-width:900px){header.glass{grid-template-columns:1fr;justify-items:center;border-radius:28px;text-align:center}.hright{justify-content:center}}
-/* ---- empty states, centred ---- */
-.empty{display:flex;align-items:center;justify-content:center;text-align:center;min-height:90px;padding:12px}
-.col .empty{min-height:60px}
-.notes .empty{grid-column:1/-1}
-.log .empty,#hm .empty,#hl .empty{min-height:120px}
 
 /* ---- footer pills ---- */
 .foot{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:32px}
