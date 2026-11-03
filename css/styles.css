@@ -33,8 +33,8 @@ nav{display:flex;gap:6px}
 nav .btn{background:rgba(255,255,255,.5);color:var(--ink);text-shadow:none;box-shadow:inset 0 1.5px 0 #fff}
 nav .btn.on{background:var(--lav);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.2)}
 input,textarea,select{font:400 13px 'Poppins',sans-serif;color:var(--ink);background:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.9);border-radius:16px;padding:8px 12px;min-width:0}
-
 input::placeholder,textarea::placeholder{color:#8a789b}
+
 .grid{display:grid;gap:16px}
 .g2{grid-template-columns:1.3fr 1fr}
 .g3{grid-template-columns:repeat(3,1fr)}
@@ -53,7 +53,7 @@ input::placeholder,textarea::placeholder{color:#8a789b}
 .ring{position:relative;width:190px;height:190px;margin:4px auto}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
 .ring .t{position:absolute;inset:0;display:grid;place-content:center;text-align:center;font:600 40px 'Poppins',sans-serif}
-.ring .t small{font:300 12px 'Poppins',sans-serif; font-weight: bold; color:var(--soft)}
+.ring .t small{font:300 12px 'Poppins',sans-serif; color:var(--soft)}
 .pset{display:flex;gap:10px;justify-content:center;margin-bottom:8px;font-size:13px}
 .pset input{width:62px;text-align:center;padding:5px}
 .item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,.85);border-radius:18px;margin-top:8px}
@@ -91,7 +91,7 @@ h1,h2,h3,.stat b,.ring .t span{font-family:'Poppins',system-ui,sans-serif!import
 h1,h2{font-weight:600!important;letter-spacing:-.01em}
 h3{font-weight:600!important}
 .stat b{font-weight:300!important;text-transform:none;letter-spacing:-.02em}
-.ring .t span{font-weight:200!important, bold}
+.ring .t span{font-weight:200!important; font-weight: bold}
 .muted,.empty,.ring .t small,.pset{font-weight:300!important}
 .stat{font-weight:500!important;letter-spacing:.06em;text-transform:uppercase;font-size:10.5px;color:#3a3550}
 .goal-name{font-family:'Poppins',system-ui,sans-serif!important;font-weight:600!important}
