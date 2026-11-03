@@ -151,7 +151,7 @@ nav .btn.on{background:linear-gradient(135deg,#F6DBD2,#DFC4EC);color:#3a3550;tex
 h2{font-size:18px}
 h3{font-size:15px}
 .goal-name{font-size:22px}
-.ring .t span{font-size:40px}
+.ring .t span{font-size:40px; font-weight:bold}
 .stat b{font-size:24px}
 .jelly{display:inline-block;padding:0 6px 6px;font-family:'Modak','Chango',sans-serif!important;font-weight:400!important;font-size:44px;line-height:.85;letter-spacing:.01em;color:transparent;background:linear-gradient(165deg,#fff 5%,#ffd3e4 35%,#ff9fc6 68%,#ffc7ad 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-stroke:2px rgba(255,140,185,.95);filter:drop-shadow(0 3px 3px rgba(255,90,150,.35)) drop-shadow(0 0 1px #fff);text-shadow:none!important}
 :root{--ink:#26264a;--soft:#4b4a73}
