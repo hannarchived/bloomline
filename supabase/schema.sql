@@ -1,6 +1,3 @@
--- bloomline: run this once in Supabase > SQL Editor > New query > Run
--- One row per user. "data" holds that user's goals, kanban, post-its, habits, logs and timer settings.
-
 create table if not exists public.user_state (
   user_id    uuid primary key references auth.users (id) on delete cascade,
   data       jsonb not null default '{}'::jsonb,

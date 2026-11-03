@@ -1,5 +1,3 @@
-// Storage layer: Supabase (accounts + per-user cloud sync) with a localStorage cache.
-// If config.js still has the placeholder values, the app runs in "local mode" instead.
 (function () {
   const cfg = window.BLOOMLINE_CONFIG || {};
   const configured = cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY && !/YOUR_/.test(cfg.SUPABASE_URL + cfg.SUPABASE_ANON_KEY);
