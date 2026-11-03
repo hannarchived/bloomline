@@ -1,3 +1,4 @@
+
 :root{--ink:#fff;--soft:rgba(255,255,255,.9);--glass:rgba(72,56,125,.36);--edge:rgba(255,255,255,.75);
 --pink:linear-gradient(135deg,#ff7aa8,#ffb199);--mint:linear-gradient(135deg,#4fe0b0,#38bdf8);--sun:linear-gradient(135deg,#ffd35a,#ff9f6b);--lav:linear-gradient(135deg,#b79cff,#ff8fd0);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}

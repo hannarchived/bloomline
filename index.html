@@ -1,72 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>bloomline</title>
-    <link rel="icon" href="assets/flower.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="css/styles.css">
-  </head>
-  <body>
-    <canvas id="fx"></canvas>
-    <main>
-    <header class="glass"><div class="logo"><img src="assets/flower.png" alt="">bloomline</div>
-    <div class="greet-pill" id="hs"><span class="hi-ico" id="hi-ico" aria-hidden="true">☀️</span><span id="hi">Hello</span></div>
-    <div class="hright"><div class="acct"><span class="muted" id="who"></span><button class="btn ghost sm" id="out" hidden>Sign out</button></div><nav><button class="btn on" data-tab="garden">Bloom Fields</button><button class="btn" data-tab="habits">Habits</button></nav></div></header>
-    <section id="garden">
-    <div class="grid g2">
-      <div class="glass"><input class="goal-name" id="goal" aria-label="Big goal" maxlength="80">
-      <div class="bloom mt"><div class="pot"><img id="bl" src="assets/flower.png" alt=""></div>
-      <div style="flex:1"><div class="bar"><i id="gb"></i></div><p class="muted" id="gt"></p><p class="muted">Every task you finish, on the board or in today’s goals, makes this bloom open wider.</p></div></div></div>
-      <div class="glass" style="text-align:center"><h2 id="pm">Focus</h2>
-      <div class="pset"><label>Total <input type="number" id="ph" min="0.25" max="12" step="0.25"> hrs</label><label>Focus <input type="number" id="pw" min="1" max="120"> min</label><label>Break <input type="number" id="pb" min="1" max="60"> min</label></div>
-      <div class="ring"><svg viewBox="0 0 100 100"><defs><linearGradient id="rg"><stop offset="0" stop-color="#ff7aa8"/><stop offset="1" stop-color="#ffd35a"/></linearGradient></defs><circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,.65)" stroke-width="8"/><circle id="rc" cx="50" cy="50" r="44" fill="none" stroke="url(#rg)" stroke-width="8" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="0"/></svg><div class="t"><span id="tm">25:00</span><small id="tl">ready to focus</small></div></div>
-      <div class="row" style="justify-content:center"><button class="btn mint" id="pp">Play</button><button class="btn ghost" id="pr">Reset</button></div><div class="plan" id="pl"></div><p class="muted" id="ps"></p></div>
-    </div>
-    <div class="grid g21 mt">
-      <div class="glass"><h2>Today’s goals</h2><p class="muted" style="margin:-6px 0 8px">Small wins for today only. They reset tomorrow.</p>
-      <form class="row" id="df"><input id="di" placeholder="What will you do today?" maxlength="80" aria-label="New daily goal"><button class="btn sun">Add goal</button></form><div id="dl"></div></div>
-      <div class="glass"><h2>Post-its</h2>
-      <form class="row" id="nf"><input id="ni" placeholder="Jot a quick thought" maxlength="120" aria-label="New post-it"><button class="btn lav">Stick it</button></form><div class="notes" id="nl"></div></div>
-    </div>
-    <div class="glass mt"><h2>Kanban board</h2>
-      <form class="row" id="kf"><input id="ki" placeholder="Add a step toward your goal" maxlength="80" aria-label="New task"><button class="btn">Add to To do</button></form>
-      <div class="grid g3 mt" id="kb"></div></div>
-    </section>
-    <section id="habits" class="tabs-hide">
-    <div class="glass"><h2>Your habit dashboard</h2><div class="stats" id="st"></div></div>
-    <div class="grid g2 mt">
-      <div class="glass"><h2>Last 7 days</h2><div class="bars" id="bars"></div></div>
-      <div class="glass"><h2>Consistency by habit</h2><p class="muted" style="margin:-6px 0 4px">Last 14 days, darker means more tasks done.</p><div id="hm"></div></div>
-    </div>
-    <div class="grid g21 mt">
-      <div class="glass"><h2>New habit</h2>
-      <form id="hf" style="display:grid;gap:8px"><div class="row"><input id="he" value="🌼" style="flex:none;width:64px;text-align:center" maxlength="2" aria-label="Emoji"><input id="hn" placeholder="Habit name, like Morning stretch" maxlength="40" required aria-label="Habit name"></div>
-      <textarea id="ht" rows="3" placeholder="Tasks, one per line or separated by commas" aria-label="Habit tasks"></textarea><button class="btn mint">Plant habit</button></form>
-      <div id="hl"></div></div>
-      <div class="glass"><h2>Log</h2><div class="log" id="lg"></div></div>
-    </div>
-    </section>
-    </main>
-    <div class="auth" id="auth" role="dialog" aria-modal="true" aria-labelledby="at">
-    <div class="glass auth-card"><h2 id="at">Welcome to bloomline</h2>
-      <p class="muted">Sign in to keep your goals, tasks and habit logs private to you and synced across your devices.</p>
-      <form id="af"><input id="ae" type="email" placeholder="Email" required autocomplete="email" aria-label="Email">
-      <input id="ap" type="password" placeholder="Password (6+ characters)" minlength="6" required autocomplete="current-password" aria-label="Password">
-      <p class="muted" id="am" role="status"></p>
-      <div class="row"><button class="btn" type="submit">Sign in</button><button class="btn mint" type="button" id="aup">Create account</button></div></form></div></div>
-    <div class="toast glass" id="to" role="status"></div>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>bloomline</title>
+<link rel="icon" href="assets/flower.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head><body>
+<canvas id="fx"></canvas>
+<main>
+<header class="glass"><div class="logo"><img src="assets/flower.png" alt="">bloomline</div>
+<div class="greet-pill" id="hs"><span class="hi-ico" id="hi-ico" aria-hidden="true">☀️</span><span id="hi">Hello</span></div>
+<div class="hright"><div class="acct"><span class="muted" id="who"></span><button class="btn ghost sm" id="out" hidden>Sign out</button></div><nav><button class="btn on" data-tab="garden">Bloom Fields</button><button class="btn" data-tab="habits">Habits</button></nav></div></header>
+<section id="garden">
+ <div class="grid g2">
+  <div class="glass"><input class="goal-name" id="goal" aria-label="Big goal" maxlength="80">
+   <div class="bloom mt"><div class="pot"><img id="bl" src="assets/flower.png" alt=""></div>
+   <div style="flex:1"><div class="bar"><i id="gb"></i></div><p class="muted" id="gt"></p><p class="muted">Every task you finish, on the board or in today’s goals, makes this bloom open wider.</p></div></div></div>
+  <div class="glass" style="text-align:center"><h2 id="pm">Focus</h2>
+   <div class="pset"><label>Total <input type="number" id="ph" min="0.25" max="12" step="0.25"> hrs</label><label>Focus <input type="number" id="pw" min="1" max="120"> min</label><label>Break <input type="number" id="pb" min="1" max="60"> min</label></div>
+   <div class="ring"><svg viewBox="0 0 100 100"><defs><linearGradient id="rg"><stop offset="0" stop-color="#ff7aa8"/><stop offset="1" stop-color="#ffd35a"/></linearGradient></defs><circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,.65)" stroke-width="8"/><circle id="rc" cx="50" cy="50" r="44" fill="none" stroke="url(#rg)" stroke-width="8" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="0"/></svg><div class="t"><span id="tm">25:00</span><small id="tl">ready to focus</small></div></div>
+   <div class="row" style="justify-content:center"><button class="btn mint" id="pp">Play</button><button class="btn ghost" id="pr">Reset</button></div><div class="plan" id="pl"></div><p class="muted" id="ps"></p></div>
+ </div>
+ <div class="grid g21 mt">
+  <div class="glass"><h2>Today’s goals</h2><p class="muted" style="margin:-6px 0 8px">Small wins for today only. They reset tomorrow.</p>
+   <form class="row" id="df"><input id="di" placeholder="What will you do today?" maxlength="80" aria-label="New daily goal"><button class="btn sun">Add goal</button></form><div id="dl"></div></div>
+  <div class="glass"><h2>Post-its</h2>
+   <form class="row" id="nf"><input id="ni" placeholder="Jot a quick thought" maxlength="120" aria-label="New post-it"><button class="btn lav">Stick it</button></form><div class="notes" id="nl"></div></div>
+ </div>
+ <div class="glass mt"><h2>Kanban board</h2>
+  <form class="row" id="kf"><input id="ki" placeholder="Add a step toward your goal" maxlength="80" aria-label="New task"><button class="btn">Add to To do</button></form>
+  <div class="grid g3 mt" id="kb"></div></div>
+</section>
+<section id="habits" class="tabs-hide">
+ <div class="glass"><h2>Your habit dashboard</h2><div class="stats" id="st"></div></div>
+ <div class="grid g2 mt">
+  <div class="glass"><h2>Last 7 days</h2><div class="bars" id="bars"></div></div>
+  <div class="glass"><h2>Consistency by habit</h2><p class="muted" style="margin:-6px 0 4px">Last 14 days, darker means more tasks done.</p><div id="hm"></div></div>
+ </div>
+ <div class="grid g21 mt">
+  <div class="glass"><h2>New habit</h2>
+   <form id="hf" style="display:grid;gap:8px"><div class="row"><input id="he" value="🌼" style="flex:none;width:64px;text-align:center" maxlength="2" aria-label="Emoji"><input id="hn" placeholder="Habit name, like Morning stretch" maxlength="40" required aria-label="Habit name"></div>
+   <textarea id="ht" rows="3" placeholder="Tasks, one per line or separated by commas" aria-label="Habit tasks"></textarea><button class="btn mint">Plant habit</button></form>
+   <div id="hl"></div></div>
+  <div class="glass"><h2>Log</h2><div class="log" id="lg"></div></div>
+ </div>
+</section>
+</main>
+<div class="auth" id="auth" role="dialog" aria-modal="true" aria-labelledby="at">
+ <div class="glass auth-card"><h2 id="at">Welcome to bloomline</h2>
+  <p class="muted">Sign in to keep your goals, tasks and habit logs private to you and synced across your devices.</p>
+  <form id="af"><input id="ae" type="email" placeholder="Email" required autocomplete="email" aria-label="Email">
+   <input id="ap" type="password" placeholder="Password (6+ characters)" minlength="6" required autocomplete="current-password" aria-label="Password">
+   <p class="muted" id="am" role="status"></p>
+   <div class="row"><button class="btn" type="submit">Sign in</button><button class="btn mint" type="button" id="aup">Create account</button></div></form></div></div>
+<div class="toast glass" id="to" role="status"></div>
 
-    <!-- 1. your Supabase keys -->
-    <script src="js/config.js"></script>
-    <!-- 2. Supabase client library (pinned version) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-    <!-- 3. app code -->
-    <script src="js/store.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/fx.js"></script>
-  </body>
-</html>
+<!-- 1. your Supabase keys -->
+<script src="js/config.js"></script>
+<!-- 2. Supabase client library (pinned version) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<!-- 3. app code -->
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+<script src="js/fx.js"></script>
+</body></html>
