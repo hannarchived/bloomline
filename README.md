@@ -20,7 +20,7 @@ bloomline/
 1. Go to https://supabase.com, sign in, click **New project**, pick a name, region and database password.
 2. Open **SQL Editor > New query**, paste everything from `supabase/schema.sql`, click **Run**.
    This creates the `user_state` table and the Row Level Security rules, so each user can only read and write their own data.
-3. Open **Project Settings > API** and copy the **Project URL** and the **anon public** key.
+3. Open **Project Settings > API** and copy the **Project URL** and the **Publisher** key.
 4. Paste them into `js/config.js`. (The anon key is meant to be public. Never use the `service_role` key here.)
 5. Open **Authentication > Providers > Email** and choose whether to require email confirmation.
    Easiest for testing: turn "Confirm email" off. For real users, keep it on.
