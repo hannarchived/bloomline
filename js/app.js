@@ -77,7 +77,7 @@ async function authDo(kind){
   if(!email||pw.length<6){am.textContent='Enter your email and a password of 6+ characters.';return}
   am.textContent='One moment…';
   try{
-    const {data,error}=kind==='up'?await Store.signUp(email,pw,$('#an').value.trim()):await Store.signIn(email,pw);
+    const {data,error}=kind==='up'?await Store.signUp(email,pw):await Store.signIn(email,pw);
     if(error){am.textContent=error.message;return}
     if(!(data&&data.session)){am.textContent='Check your inbox to confirm your email, then sign in.';return}
     $('#ap').value='';am.textContent='';await enter();
@@ -102,10 +102,10 @@ const GREET={
 };
 function greet(){
   const d=new Date(),h=d.getHours(),k=h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':h>=18&&h<22?'evening':'night',g=GREET[k];
-  const u=Store.user,meta=u&&u.user_metadata&&u.user_metadata.name;let name=meta?String(meta).trim():(u?u.email.split('@')[0].replace(/[._-]+/g,' ').trim():'');
+  let name=Store.user?Store.user.email.split('@')[0].replace(/[._-]+/g,' ').trim():'';
   name=name?name.charAt(0).toUpperCase()+name.slice(1):'';
   $('#hi-ico').textContent=g[0];
-  $('#hi').textContent=g[1]+(name?', '+name:'');
-  $('#hs').textContent=d.toLocaleDateString('en',{weekday:'long',month:'long',day:'numeric'})+' · '+g[2][d.getDate()%3];
+  $('#hi').textContent=g[1]+(name?', '+name:'')+'!';
+  $('#hs').title=d.toLocaleDateString('en',{weekday:'long',month:'long',day:'numeric'})+' · '+g[2][d.getDate()%3];
 }
 setInterval(greet,60000);

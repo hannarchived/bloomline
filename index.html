@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>bloomline</title>
     <link rel="icon" href="assets/flower.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="css/styles.css">
   </head>
-
   <body>
     <canvas id="fx"></canvas>
     <main>
     <header class="glass"><div class="logo"><img src="assets/flower.png" alt="">bloomline</div>
-    <nav><button class="btn on" data-tab="garden">Bloom Fields</button><button class="btn" data-tab="habits">Habits</button></nav><div class="acct"><span class="muted" id="who"></span><button class="btn ghost sm" id="out" hidden>Sign out</button></div></header>
+    <div class="greet-pill" id="hs"><span class="hi-ico" id="hi-ico" aria-hidden="true">☀️</span><span id="hi">Hello</span></div>
+    <div class="hright"><div class="acct"><span class="muted" id="who"></span><button class="btn ghost sm" id="out" hidden>Sign out</button></div><nav><button class="btn on" data-tab="garden">Bloom Fields</button><button class="btn" data-tab="habits">Habits</button></nav></div></header>
     <section id="garden">
     <div class="grid g2">
       <div class="glass"><input class="goal-name" id="goal" aria-label="Big goal" maxlength="80">
@@ -52,8 +54,7 @@
     <div class="auth" id="auth" role="dialog" aria-modal="true" aria-labelledby="at">
     <div class="glass auth-card"><h2 id="at">Welcome to bloomline</h2>
       <p class="muted">Sign in to keep your goals, tasks and habit logs private to you and synced across your devices.</p>
-      <form id="af"><input id="an" type="text" placeholder="Nickname (used when creating an account)" maxlength="30" autocomplete="nickname" aria-label="Nickname">
-      <input id="ae" type="email" placeholder="Email" required autocomplete="email" aria-label="Email">
+      <form id="af"><input id="ae" type="email" placeholder="Email" required autocomplete="email" aria-label="Email">
       <input id="ap" type="password" placeholder="Password (6+ characters)" minlength="6" required autocomplete="current-password" aria-label="Password">
       <p class="muted" id="am" role="status"></p>
       <div class="row"><button class="btn" type="submit">Sign in</button><button class="btn mint" type="button" id="aup">Create account</button></div></form></div></div>
