@@ -5,7 +5,7 @@
 <link rel="icon" href="assets/flower.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="css/styles.css?v=5">
+<link rel="stylesheet" href="css/styles.css?v=7">
 </head><body>
 <canvas id="fx"></canvas>
 <main>
@@ -20,11 +20,7 @@
   <div class="glass" style="text-align:center"><h2 id="pm">Focus</h2>
    <div class="pset"><label>Total <input type="number" id="ph" min="0.25" max="12" step="0.25"> hrs</label><label>Focus <input type="number" id="pw" min="1" max="120"> min</label><label>Break <input type="number" id="pb" min="1" max="60"> min</label></div>
    <div class="ring"><svg viewBox="0 0 100 100"><defs><linearGradient id="rg"><stop offset="0" stop-color="#ff7aa8"/><stop offset="1" stop-color="#ffd35a"/></linearGradient></defs><circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,.65)" stroke-width="8"/><circle id="rc" cx="50" cy="50" r="44" fill="none" stroke="url(#rg)" stroke-width="8" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="0"/></svg><div class="t"><span id="tm">25:00</span><small id="tl">ready to focus</small></div></div>
-   <div class="row" style="justify-content:center">
-    <button class="btn mint" id="pp">Play</button>
-    <button class="btn ghost" id="pr">Reset</button>
-   </div>
-   <div class="plan" id="pl"></div><p class="muted" id="ps"></p></div>
+   <div class="row" style="justify-content:center"><button class="btn mint" id="pp">Play</button><button class="btn ghost" id="pr">Reset</button></div><div class="plan" id="pl"></div><p class="muted" id="ps"></p></div>
  </div>
  <div class="grid g21 mt">
   <div class="glass"><h2>Today’s goals</h2><p class="muted" style="margin:-6px 0 8px">Small wins for today only. They reset tomorrow.</p>
@@ -45,13 +41,13 @@
  <div class="grid g21 mt">
   <div class="glass"><h2>New habit</h2>
    <form id="hf" style="display:grid;gap:8px"><div class="row"><input id="he" value="🌼" style="flex:none;width:64px;text-align:center" maxlength="2" aria-label="Emoji"><input id="hn" placeholder="Habit name, like Morning stretch" maxlength="40" required aria-label="Habit name"></div>
-   <textarea id="ht" rows="3" placeholder="Tasks, one per line or separated by commas" aria-label="Habit tasks"></textarea><button class="btn mint">🌱 Plant habit</button></form>
+   <textarea id="ht" rows="3" placeholder="Tasks, one per line or separated by commas" aria-label="Habit tasks"></textarea><button class="btn mint">Plant habit</button></form>
    <div id="hl"></div></div>
   <div class="glass"><h2>Log</h2><div class="log" id="lg"></div></div>
  </div>
 </section>
 <footer class="foot">
- <div class="glass pill"><span class="acct"><span class="muted" id="who"></span><button class="btn ghost sm" id="out" hidden>Sign out</button></span><span class="sep" aria-hidden="true"></span><span>© Hanna Sandoval, 2026</span></div>
+ <div class="glass pill"><span>© Hanna Sandoval, 2026</span><span class="sep" aria-hidden="true"></span><span class="acct"><span class="muted" id="who"></span><button class="btn ghost sm" id="out" hidden>Sign out</button></span></div>
 </footer>
 </main>
 <div class="auth" id="auth" role="dialog" aria-modal="true" aria-labelledby="at">
@@ -65,11 +61,11 @@
 <div class="toast glass" id="to" role="status"></div>
 
 <!-- 1. your Supabase keys -->
-<script src="js/config.js?v=5"></script>
+<script src="js/config.js?v=7"></script>
 <!-- 2. Supabase client library (pinned version) -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <!-- 3. app code -->
-<script src="js/store.js?v=5"></script>
-<script src="js/app.js?v=5"></script>
-<script src="js/fx.js?v=5"></script>
+<script src="js/store.js?v=7"></script>
+<script src="js/app.js?v=7"></script>
+<script src="js/fx.js?v=7"></script>
 </body></html>
