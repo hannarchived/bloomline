@@ -201,4 +201,4 @@ header.glass{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
 .foot .pill{width:100%;justify-content:space-between;padding:12px 26px}
 .foot .sep{display:none}
 @media(max-width:600px){.foot .pill{justify-content:center}}
-.ring .t span{font-weight:700!important}
+.ring .t span{font-weight:600!important}
