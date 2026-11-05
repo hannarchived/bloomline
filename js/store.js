@@ -66,7 +66,7 @@
       if (error) { console.warn('bloomline: load failed -', error.message); return local; }
       return data ? data.data : local;
     },
-    // Called on every change: cache locally right away, sync to Supabase after a short pause.
+    
     save(state) {
       try { localStorage.setItem(key(), JSON.stringify(state)); } catch (e) {}
       if (!sb || !user) return;
