@@ -86,7 +86,11 @@ function hydrate(d){ // load a saved state into the UI
 }
 const authEl=$('#auth'),am=$('#am');
 function lock(on){authEl.classList.toggle('on',on);document.body.classList.toggle('locked',on);if(on)setTimeout(()=>$('#ae').focus(),50)}
-function who(){$('#who').textContent=Store.user?Store.user.email:'Local mode (not synced)';$('#out').hidden=!Store.user}
+function who(){
+  const u=Store.user,b=$('#out');
+  $('#who').textContent=u?u.email:Store.enabled?'Guest mode · saved on this device only':'Local mode (not synced)';
+  b.hidden=!(u||Store.enabled);b.textContent=u?'Sign out':'Sign in to save';
+}
 function blank(){hydrating=true;hydrate(null);hydrating=false}
 async function enter(){hydrating=true;try{hydrate(await Store.load())}finally{hydrating=false}who();lock(false)}
 async function authDo(kind){
@@ -97,15 +101,19 @@ async function authDo(kind){
     const {data,error}=kind==='up'?await Store.signUp(email,pw,$('#an').value.trim()):await Store.signIn(email,pw,$('#an').value.trim());
     if(error){am.textContent=/failed to fetch|network/i.test(error.message)?`Can’t reach Supabase at ${Store.host}. Check the Project URL in js/config.js, that the project isn’t paused, and any ad blocker or VPN.`:error.message;return}
     if(!(data&&data.session)){am.textContent='Check your inbox to confirm your email, then sign in.';return}
-    $('#ap').value='';am.textContent='';await enter();
+    $('#ap').value='';am.textContent='';Store.setGuest(false);await enter();
   }catch(e){am.textContent=/failed to fetch|network/i.test(e.message||'')?`Can’t reach Supabase at ${Store.host}. Check the Project URL in js/config.js and your connection.`:'Something went wrong. Please try again.'}
 }
 $('#af').onsubmit=e=>{e.preventDefault();authDo('in')};
 $('#aup').onclick=()=>authDo('up');
-$('#out').onclick=async()=>{await Store.signOut();blank();who();lock(true)};
+$('#guest').onclick=async()=>{Store.setGuest(true);await enter()};
+$('#out').onclick=async()=>{
+  if(!Store.user){am.textContent='';lock(true);return}   // guest wants to sign in
+  await Store.signOut();Store.setGuest(false);blank();who();lock(true)
+};
 (async function boot(){
   blank();
   if(!Store.enabled){await enter();return}   // no Supabase keys yet: run locally in this browser
   Store.onAuth(ev=>{if(ev==='SIGNED_OUT'&&!authEl.classList.contains('on')){blank();who();lock(true)}});
-  if(await Store.session())await enter();else{who();lock(true)}
+  if(await Store.session())await enter();else if(Store.guest)await enter();else{who();lock(true)}
 })();

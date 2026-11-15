@@ -24,9 +24,14 @@
   addEventListener('pagehide', flush);
   addEventListener('visibilitychange', () => { if (document.hidden) flush(); });
 
+  const guestData = () => { try { return JSON.parse(localStorage.getItem('bloomline:local')); } catch (e) { return null; } };
+
   window.Store = {
     enabled: !!sb,
     host: url.replace(/^https?:\/\//, ''),
+    // "Guest" = the visitor chose not to sign in; progress stays in this browser only.
+    get guest() { try { return localStorage.getItem('bloomline:guest') === '1'; } catch (e) { return false; } },
+    setGuest(v) { try { v ? localStorage.setItem('bloomline:guest', '1') : localStorage.removeItem('bloomline:guest'); } catch (e) {} },
     get user() { return user; },
     async session() {
       if (!sb) return null;
@@ -64,7 +69,7 @@
       if (!sb || !user) return local;
       const { data, error } = await sb.from('user_state').select('data').eq('user_id', user.id).maybeSingle();
       if (error) { console.warn('bloomline: load failed -', error.message); return local; }
-      return data ? data.data : local;
+      return data ? data.data : (local || guestData());   // brand-new account adopts any guest progress
     },
     // Called on every change: cache locally right away, sync to Supabase after a short pause.
     save(state) {
