@@ -88,7 +88,7 @@ const authEl=$('#auth'),am=$('#am');
 function lock(on){authEl.classList.toggle('on',on);document.body.classList.toggle('locked',on);if(on)setTimeout(()=>$('#ae').focus(),50)}
 function who(){
   const u=Store.user,b=$('#out');
-  $('#who').textContent=u?u.email:Store.enabled?'Guest mode · saved on this device only':'Local mode (not synced)';
+  $('#who').textContent=u?u.email:Store.enabled?'Guest mode':'Local mode (not synced)';
   b.hidden=!(u||Store.enabled);b.textContent=u?'Sign out':'Sign in to save';
 }
 function blank(){hydrating=true;hydrate(null);hydrating=false}
